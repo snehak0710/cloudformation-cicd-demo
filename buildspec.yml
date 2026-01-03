@@ -2,20 +2,20 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      python: 3.9
     commands:
-      - echo "Install phase started"
+      - echo "Installing cfn-lint"
+      - pip install cfn-lint
 
   pre_build:
     commands:
-      - echo "Fixing line endings"
-      - sed -i 's/\r$//' s3-bucket.yml
-      - echo "Validating CloudFormation template"
-      - aws cloudformation validate-template --template-body file://s3-bucket.yml
+      - echo "Validating CloudFormation template locally"
+      - cfn-lint s3-bucket.yml
 
   build:
     commands:
-      - echo "Build phase started"
-      - echo "Build successful"
+      - echo "Build phase successful"
 
 artifacts:
   files:
