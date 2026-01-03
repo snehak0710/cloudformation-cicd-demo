@@ -6,10 +6,11 @@ phases:
       - echo "Install phase started"
 
   pre_build:
-    commands:
-      - echo "Pre-build phase started"
-      - echo "Validating CloudFormation template"
-      - aws cloudformation validate-template --template-body file://s3-bucket.yml
+  commands:
+    - echo "Fixing line endings"
+    - sed -i 's/\r$//' s3-bucket.yml
+    - echo "Validating CloudFormation template"
+    - aws cloudformation validate-template --template-body file://s3-bucket.yml
 
   build:
     commands:
