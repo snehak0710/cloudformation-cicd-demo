@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Install phase started"
+
+  pre_build:
+    commands:
+      - echo "Pre-build phase started"
+      - echo "Validating CloudFormation template"
+      - aws cloudformation validate-template --template-body file://s3-bucket.yml
+
+  build:
+    commands:
+      - echo "Build phase started"
+      - echo "Build successful"
+
+artifacts:
+  files:
+    - s3-bucket.yml
